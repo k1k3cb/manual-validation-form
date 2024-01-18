@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { COLORS } from './colors';
 
 export const GlobalStyles = createGlobalStyle`
   *,
@@ -15,6 +16,11 @@ export const GlobalStyles = createGlobalStyle`
   body{
     margin: 0;
     font-family: sans-serif;
+    background-color: ${COLORS.red};
+    background-image: url(public/images/bg-intro-mobile.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Poppins', sans-serif;
   }
 
   a{
