@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { StyledForm } from './styles';
+import {
+	StyledBottomText,
+	StyledButton,
+	StyledForm,
+	StyledSpan
+} from './styles';
+import FormField from '../form-field/FormField';
 
 const Form = () => {
 	const [formValues, setFormValues] = useState({
@@ -17,65 +23,63 @@ const Form = () => {
 			password: false
 		}
 	});
+
 	return (
 		<StyledForm onSubmit={handleSubmit}>
-			<div>
-				<label>
-					First Name:
-					<input
-						type='text'
-						name='firstName'
-						onChange={handleChangeFormValues}
-						required
-					/>
-				</label>
-			</div>
-			<div>
-				<label>
-					Last Name:
-					<input
-						type='text'
-						name='lastName'
-						onChange={handleChangeFormValues}
-						required
-					/>
-				</label>
-			</div>
-			<div>
-				{' '}
-				<label>
-					Email:
-					<input
-						type='email'
-						name='email'
-						onChange={handleChangeFormValues}
-						required
-					/>
-				</label>
-			</div>
-			<div>
-				{' '}
-				<label>
-					Password:
-					<input
-						type='password'
-						name='password'
-						onChange={handleChangeFormValues}
-						required
-					/>
-				</label>
-			</div>
+			<FormField
+				text='First Name'
+				type='text'
+				name='firstName'
+				handleChangeFormValues={event =>
+					handleChangeFormValues(event.target, formValues, setFormValues)
+				}
+			/>
+			<FormField
+				text='Last Name'
+				type='text'
+				name='lastName'
+				handleChangeFormValues={event =>
+					handleChangeFormValues(event.target, formValues, setFormValues)
+				}
+			/>
+			<FormField
+				text='Email'
+				type='email'
+				name='email'
+				handleChangeFormValues={event =>
+					handleChangeFormValues(event.target, formValues, setFormValues)
+				}
+			/>
 
-			<button type='submit'>Submit</button>
+			<FormField
+				text='Password'
+				type='password'
+				name='password'
+				handleChangeFormValues={event =>
+					handleChangeFormValues(event.target, formValues, setFormValues)
+				}
+			/>
+
+			<StyledButton type='submit'>CLAIM YOUR FREE TRIAL</StyledButton>
+			<StyledBottomText>
+				By clicking the button, you are agreeing to{' '}
+				<StyledSpan> our Terms and Services</StyledSpan>
+			</StyledBottomText>
 		</StyledForm>
 	);
 };
 
-const handleSubmit = event => {
+const handleSubmit = (event, formValues) => {
 	event.preventDefault();
-	console.log(event.target.name.value);
+	console.log('handleSubmit');
+	// console.log(formValues);
 };
 
-const handleChangeFormValues = () => {};
+const handleChangeFormValues = (input, formValues, setFormValues) => {
+	const { name, value } = input;
+	console.log('inputValue', input);
+	setFormValues({ ...formValues, [name]: value });
+	console.log('formValues', formValues);
+};
 
 export default Form;
